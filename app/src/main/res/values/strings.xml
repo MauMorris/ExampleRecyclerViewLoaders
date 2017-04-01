@@ -1,0 +1,19 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">AppMisContenidos</string>
+    <string name="titulo">Lambdas</string>
+
+    <string name="etiqueta_numero">Numero: <xliff:g id="numero" example="012345">%s</xliff:g></string>
+    <string name="etiqueta_fecha">Fecha: <xliff:g id="fecha" example="1990/02/23 45:00">%s</xliff:g></string>
+    <string name="etiqueta_tipo">Tipo: <xliff:g id="tipo" example="1">%d</xliff:g></string>
+    <string name="etiqueta_duracion">Duracion: <xliff:g id="duracion" example="70s">%s</xliff:g></string>
+    <string name="etiqueta_geoCode">GeoCode: <xliff:g id="geocode" example="Mexico">%s</xliff:g></string>
+    <string name="etiqueta_llamada">Llamada: <xliff:g id="llamada" example="Entrada">%s</xliff:g></string>
+
+    <string name="entrada">Entrada</string>
+    <string name="salida">Salida</string>
+    <string name="perdida">Perdida</string>
+    <string name="undefined">NoDefinido</string>
+
+    <string name="descripcion_contenidos">Uso de Content Providers</string>
+    <string name="det_call">det call</string>
+</resources>
