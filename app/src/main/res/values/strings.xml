@@ -9,10 +9,10 @@
     <string name="etiqueta_geoCode">GeoCode: <xliff:g id="geocode" example="Mexico">%s</xliff:g></string>
     <string name="etiqueta_llamada">Llamada: <xliff:g id="llamada" example="Entrada">%s</xliff:g></string>
 
-    <string name="entrada">Entrada</string>
-    <string name="salida">Salida</string>
-    <string name="perdida">Perdida</string>
-    <string name="undefined">NoDefinido</string>
+    <string name="tipo_llamada_entrada">Entrada</string>
+    <string name="tipo_llamada_salida">Salida</string>
+    <string name="tipo_llamada_perdida">Perdida</string>
+    <string name="tipo_llamada_undefined">NoDefinido</string>
 
     <string name="descripcion_contenidos">Uso de Content Providers</string>
     <string name="det_call">det call</string>

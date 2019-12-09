@@ -73,19 +73,19 @@ public class MainActivity extends AppCompatActivity {
                 //Validando tipo de llamada
                 switch (tipo) {
                     case CallLog.Calls.INCOMING_TYPE:
-                        ii.setSetTipo(getResources().getString(R.string.entrada));
+                        ii.setSetTipo(getResources().getString(R.string.tipo_llamada_entrada));
                         break;
                     case CallLog.Calls.MISSED_TYPE:
-                        ii.setSetTipo(getResources().getString(R.string.perdida));
+                        ii.setSetTipo(getResources().getString(R.string.tipo_llamada_perdida));
                         break;
                     case CallLog.Calls.OUTGOING_TYPE:
-                        ii.setSetTipo(getResources().getString(R.string.salida));
+                        ii.setSetTipo(getResources().getString(R.string.tipo_llamada_salida));
                         break;
                     case Call.STATE_CONNECTING:
                         ii.setSetTipo("no");
                         break;
                     default:
-                        ii.setSetTipo(getResources().getString(R.string.undefined));
+                        ii.setSetTipo(getResources().getString(R.string.tipo_llamada_undefined));
                 }
 
                 ii.setNumero(getResources().getString(R.string.etiqueta_numero, numero));

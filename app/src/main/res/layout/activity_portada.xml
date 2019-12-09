@@ -16,5 +16,5 @@
         android:contentDescription="@string/descripcion_contenidos"
         android:keepScreenOn="true"
         android:text="@string/descripcion_contenidos"
-        android:textSize="@dimen/texto_titulo" />
+        android:textSize="@dimen/title_text_size" />
 </FrameLayout>

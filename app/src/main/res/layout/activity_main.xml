@@ -16,7 +16,7 @@
         android:text="@string/titulo"
         android:textColor="@color/white_text"
         android:background="@color/colorPrimary"
-        android:textSize="@dimen/texto_titulo" />
+        android:textSize="@dimen/title_text_size" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

@@ -2,92 +2,89 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical">
 
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        card_view:cardCornerRadius="4dp">
+        card_view:cardCornerRadius="12dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/cardview_default_radius">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:background="@color/cardview_dark_background"
                 android:gravity="center_vertical"
+                android:padding="10dp"
                 android:text="@string/det_call"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/text_view_numero"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/title"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
-                android:text="@string/etiqueta_numero" />
+                android:orientation="vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="0dp">
 
-            <TextView
-                android:id="@+id/text_view_fecha"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_view_numero"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
-                android:text="@string/etiqueta_fecha" />
+                <TextView
+                    android:id="@+id/text_view_numero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/text_view_margin_top"
+                    android:gravity="center_vertical"
+                    android:text="@string/etiqueta_numero" />
 
-            <TextView
-                android:id="@+id/text_view_tipo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_view_fecha"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
-                android:text="@string/etiqueta_tipo" />
+                <TextView
+                    android:id="@+id/text_view_fecha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/text_view_margin_top"
+                    android:gravity="center_vertical"
+                    android:text="@string/etiqueta_fecha" />
 
-            <TextView
-                android:id="@+id/text_view_duracion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_view_tipo"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
-                android:text="@string/etiqueta_duracion" />
+                <TextView
+                    android:id="@+id/text_view_tipo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/text_view_margin_top"
+                    android:gravity="center_vertical"
+                    android:text="@string/etiqueta_tipo" />
 
-            <TextView
-                android:id="@+id/text_view_geocode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_view_duracion"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
-                android:text="@string/etiqueta_geoCode" />
+                <TextView
+                    android:id="@+id/text_view_duracion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/text_view_margin_top"
+                    android:gravity="center_vertical"
+                    android:text="@string/etiqueta_duracion" />
 
-            <TextView
-                android:id="@+id/text_view_llamada"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_view_geocode"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
-                android:text="@string/etiqueta_llamada" />
+                <TextView
+                    android:id="@+id/text_view_geocode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/text_view_margin_top"
+                    android:gravity="center_vertical"
+                    android:text="@string/etiqueta_geoCode" />
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/text_view_llamada"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/text_view_margin_top"
+                    android:layout_marginBottom="@dimen/text_view_margin_top"
+                    android:gravity="center_vertical"
+                    android:text="@string/etiqueta_llamada" />
+
+            </LinearLayout>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
-
 </LinearLayout>
