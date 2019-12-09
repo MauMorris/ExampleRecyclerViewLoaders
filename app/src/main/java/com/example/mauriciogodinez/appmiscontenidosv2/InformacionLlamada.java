@@ -6,16 +6,7 @@ public class InformacionLlamada {
     private String tipo;
     private String duracion;
     private String geocode;
-    private String setTipo;
-
-    public InformacionLlamada(String numero, String fecha, String tipo, String duracion, String geocode, String setTipo) {
-        this.numero = numero;
-        this.fecha = fecha;
-        this.tipo = tipo;
-        this.duracion = duracion;
-        this.geocode = geocode;
-        this.setTipo = setTipo;
-    }
+    private String descripcionTipo;
 
     public InformacionLlamada() {
         this.numero = "";
@@ -23,16 +14,15 @@ public class InformacionLlamada {
         this.tipo = "";
         this.duracion = "";
         this.geocode = "";
-        this.setTipo = "";
+        this.descripcionTipo = "";
     }
 
-
-    public String getSetTipo() {
-        return setTipo;
+    public String getDescripcionTipo() {
+        return descripcionTipo;
     }
 
-    public void setSetTipo(String setTipo) {
-        this.setTipo = setTipo;
+    public void setDescripcionTipo(String descripcionTipo) {
+        this.descripcionTipo = descripcionTipo;
     }
 
     public String getNumero() { return numero; }
@@ -73,5 +63,3 @@ public class InformacionLlamada {
         this.geocode = geocode;
     }
 }
-
-

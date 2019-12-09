@@ -12,6 +12,7 @@
     <string name="tipo_llamada_entrada">Entrada</string>
     <string name="tipo_llamada_salida">Salida</string>
     <string name="tipo_llamada_perdida">Perdida</string>
+    <string name="tipo_llamada_conectando">Conectando</string>
     <string name="tipo_llamada_undefined">NoDefinido</string>
 
     <string name="descripcion_contenidos">Uso de Content Providers</string>
