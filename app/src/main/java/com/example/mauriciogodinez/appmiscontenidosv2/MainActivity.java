@@ -1,4 +1,4 @@
-package com.example.mauriciogodinez.appmiscontenidos;
+package com.example.mauriciogodinez.appmiscontenidosv2;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

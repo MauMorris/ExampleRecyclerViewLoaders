@@ -1,5 +1,5 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">AppMisContenidos</string>
+    <string name="app_name">AppMisContenidosV2</string>
     <string name="titulo">Lambdas</string>
 
     <string name="etiqueta_numero">Numero: <xliff:g id="numero" example="012345">%s</xliff:g></string>

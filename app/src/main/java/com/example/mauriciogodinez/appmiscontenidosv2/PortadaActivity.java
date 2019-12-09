@@ -1,4 +1,4 @@
-package com.example.mauriciogodinez.appmiscontenidos;
+package com.example.mauriciogodinez.appmiscontenidosv2;
 
 /**
  * Created by mauriciogodinez on 01/04/17.

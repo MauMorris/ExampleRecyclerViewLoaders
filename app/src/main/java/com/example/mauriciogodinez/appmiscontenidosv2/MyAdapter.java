@@ -1,4 +1,4 @@
-package com.example.mauriciogodinez.appmiscontenidos;
+package com.example.mauriciogodinez.appmiscontenidosv2;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package com.example.mauriciogodinez.appmiscontenidos;
+package com.example.mauriciogodinez.appmiscontenidosv2;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
