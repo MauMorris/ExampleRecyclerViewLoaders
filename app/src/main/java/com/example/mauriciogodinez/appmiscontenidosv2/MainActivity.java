@@ -43,11 +43,14 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
 
         // usa linear layout manager
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager mLayoutManager = new
+                LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        RecyclerView.Adapter mAdapter = new MyAdapter(createList());
+        MyAdapter mAdapter = new MyAdapter();
         mRecyclerView.setAdapter(mAdapter);
+
+        mAdapter.setData(createList());
     }
 
     private List<InformacionLlamada> createList() {

@@ -1,5 +1,6 @@
 package com.example.mauriciogodinez.appmiscontenidosv2;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,12 +12,18 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private List<InformacionLlamada> contactList;
 
-    public MyAdapter(List<InformacionLlamada> contactList) {
-        this.contactList = contactList;
+    public MyAdapter(){
+    }
+
+    public void setData(List<InformacionLlamada> listInformation){
+        contactList = listInformation;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
+        if (contactList == null)
+            return 0;
         return contactList.size();
     }
 
@@ -35,9 +42,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View itemView = LayoutInflater.
-                from(viewGroup.getContext()).
-                inflate(R.layout.my_text_view, viewGroup, false);
+        Context context = viewGroup.getContext();
+        int layoutIdForListItem = R.layout.my_text_view;
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        View itemView = inflater.inflate(layoutIdForListItem, viewGroup, false);
 
         return new MyViewHolder(itemView);
     }
