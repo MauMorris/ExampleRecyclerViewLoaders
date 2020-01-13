@@ -1,5 +1,14 @@
 package com.example.mauriciogodinez.appmiscontenidosv2;
 
+import android.annotation.SuppressLint;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.annotation.TargetApi;
@@ -11,6 +20,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.telecom.Call;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,14 +29,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+        LoaderManager.LoaderCallbacks <Cursor> {
     private static final String TAG = "ContentPLlamadas";
 
     //Creamos la URI del ContentProvider que utilizaremos
     private Uri direccionUriLlamada = CallLog.Calls.CONTENT_URI;
+    private MyAdapter mAdapter;
+    private CallLogsViewModel mCallLogsViewModel;
+    private Cursor cursor;
+    private static final int CALL_LOGS_LOADER_ID = 1;
+    private ProgressBar mLoadingIndicator;
 
     //en el arreglo indicamos las columnas que regresará en el query del ContentResolver
-    private String[] colContentResolver = {
+    public static final String[] colContentResolver = {
             CallLog.Calls.NUMBER,
             CallLog.Calls.DATE,
             CallLog.Calls.TYPE,
@@ -41,83 +58,72 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
+        mLoadingIndicator = findViewById(R.id.loading_indicator_progress_bar);
 
         // usa linear layout manager
         LinearLayoutManager mLayoutManager = new
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        MyAdapter mAdapter = new MyAdapter();
+        mAdapter = new MyAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
 
-        mAdapter.setData(createList());
+        CallLogsViewModelFactory factory = new CallLogsViewModelFactory(cursor);
+        mCallLogsViewModel = ViewModelProviders.of(this, factory).get(CallLogsViewModel.class);
+
+        mCallLogsViewModel.getCurrentData().observe(this, new Observer<Cursor>() {
+            public void onChanged(@Nullable Cursor cursor) {
+                if (cursor != null) {
+                    mAdapter.setData(cursor);
+                }
+            }
+        });
+
+        getSupportLoaderManager().initLoader(CALL_LOGS_LOADER_ID, null, this);
     }
 
-    private List<InformacionLlamada> createList() {
+    @SuppressLint("StaticFieldLeak")
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle bundle) {
+        return new AsyncTaskLoader<Cursor>(this) {
 
-        List<InformacionLlamada> result = new ArrayList<>();
-
-        try {
-            //Creamos el Formatter para obtener una fecha legible
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy HH:mm", Locale.ENGLISH);
-
-            //Consultamos con la URI dada para regresar los registros ordenados DESC con ref Calls.DATE
-            Cursor registros = getContentResolver().query(direccionUriLlamada, colContentResolver, null,
-                    null, CallLog.Calls.DATE + " DESC");
-
-            //crea objeto donde estaremos guardando la informacion obtenida del Content Provider
-            InformacionLlamada infoLlamada = new InformacionLlamada();
-
-            if (registros != null) {
-                while (registros.moveToNext()) {
-                    //Obtengo los datos a partir del indice
-                    String numero = registros.getString(registros.getColumnIndex(colContentResolver[0]));
-                    long fecha = registros.getLong(registros.getColumnIndex(colContentResolver[1]));//Epoch UNIX
-                    int tipo = registros.getInt(registros.getColumnIndex(colContentResolver[2]));
-                    String duracion = registros.getString(registros.getColumnIndex(colContentResolver[3]));
-                    String geoCode = registros.getString(registros.getColumnIndex(colContentResolver[4]));
-                    //Validando tipo de llamada
-                    String tipoLlamada = returnTipoLlamada(tipo);
-
-                    infoLlamada.setNumero(getResources().getString(R.string.etiqueta_numero, numero));
-                    infoLlamada.setFecha(getResources().getString(R.string.etiqueta_fecha, formatter.format(new Date(fecha))));
-                    infoLlamada.setTipo(getResources().getString(R.string.etiqueta_tipo, tipo));
-                    infoLlamada.setDuracion(getResources().getString(R.string.etiqueta_duracion, duracion + "s"));
-                    infoLlamada.setGeocode(getResources().getString(R.string.etiqueta_geoCode, geoCode));
-                    infoLlamada.setDescripcionTipo(getResources().getString(R.string.etiqueta_llamada, tipoLlamada));
-
-                    //agrega el objeto al arreglo y despues lo setea para volver a utilizarlo  evitando crear objetos duplicados
-                    result.add(infoLlamada);
-                    infoLlamada = new InformacionLlamada();
-                }
-                //liberamos la memoria del cursor
-                registros.close();
+            @Override
+            protected void onStartLoading() {
+                mLoadingIndicator.setVisibility(View.VISIBLE);
+                forceLoad();
             }
+
+            @Nullable
+            @Override
+            public Cursor loadInBackground() {
+                cursor = createList();
+                return cursor;
+            }
+        };
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
+        mLoadingIndicator.setVisibility(View.INVISIBLE);
+        mCallLogsViewModel.getCurrentData().setValue(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+    }
+
+    private Cursor createList() {
+
+        Cursor registros;
+        try {
+            //Consultamos con la URI dada para regresar los registros ordenados DESC con ref Calls.DATE
+            registros = getContentResolver().query(direccionUriLlamada, colContentResolver, null,
+                    null, CallLog.Calls.DATE + " DESC");
         } catch (Exception e) {
             Log.v(TAG, e.getMessage());
+            registros = null;
         }
-        return result;
-    }
-
-    /**
-     * Método que valida el tipo de llamada que regresa el ContentProvider y asigna
-     * el string correspondiente (entrada, perdida, salida, conectando, no definida)
-     *
-     * @param tipo registro CallLog.Calls.TYPE proporcionado por el ContentProvider
-     * @return string asignado al tipo
-     */
-    private String returnTipoLlamada(int tipo) {
-        switch (tipo) {
-            case CallLog.Calls.INCOMING_TYPE:
-                return getResources().getString(R.string.tipo_llamada_entrada);
-            case CallLog.Calls.MISSED_TYPE:
-                return getResources().getString(R.string.tipo_llamada_perdida);
-            case CallLog.Calls.OUTGOING_TYPE:
-                return getResources().getString(R.string.tipo_llamada_salida);
-            case Call.STATE_CONNECTING:
-                return getResources().getString(R.string.tipo_llamada_conectando);
-            default:
-                return getResources().getString(R.string.tipo_llamada_undefined);
-        }
+        return registros;
     }
 }
