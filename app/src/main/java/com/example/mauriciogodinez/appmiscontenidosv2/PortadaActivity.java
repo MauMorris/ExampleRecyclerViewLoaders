@@ -19,7 +19,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-public class PortadaActivity extends AppCompatActivity {
+public class PortadaActivity extends AppCompatActivity implements NextActivityCallback {
+
+    private NextActivityCallback mNextActivityCallback;
 
     private static final String TAG = PortadaActivity.class.getSimpleName();
 
@@ -43,6 +45,7 @@ public class PortadaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_portada);
 
         mContentView = findViewById(R.id.fullscreen_activity_portada);
+        mNextActivityCallback = PortadaActivity.this;
 
         //Aqui modificamos la vista inicial de la Activity para la animacion
         mContentView.setSystemUiVisibility(
@@ -109,19 +112,15 @@ public class PortadaActivity extends AppCompatActivity {
             mShowHandler.removeCallbacks(mShowRunnable);
 
             //Despues del tiempo ejecuta la siguiente tarea
-            mShowHandler.postDelayed(mIntentRunnable, NEXT_LAYOUT_DELAY_MILLIS);
+            mNextActivityCallback.executeNextActivity();
         }
     };
 
-    //Automaticamente pasa a la siguiente Activity
-    private final Runnable mIntentRunnable = new Runnable() {
-        @SuppressLint("InlinedApi")
-        @Override
-        public void run() {
-            Intent main1 = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(main1);
-            //termina la activity actual
-            finish();
-        }
-    };
+    @Override
+    public void executeNextActivity() {
+        Intent main1 = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(main1);
+        //termina la activity actual
+        finish();
+    }
 }
