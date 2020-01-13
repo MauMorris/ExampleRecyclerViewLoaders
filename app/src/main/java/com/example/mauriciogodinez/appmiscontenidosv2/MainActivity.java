@@ -22,6 +22,7 @@ import android.telecom.Call;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,7 +31,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks <Cursor> {
+        LoaderManager.LoaderCallbacks <Cursor>,
+        CallbackFromList {
     private static final String TAG = "ContentPLlamadas";
 
     //Creamos la URI del ContentProvider que utilizaremos
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new MyAdapter(this);
+        mAdapter = new MyAdapter(this, this);
         mRecyclerView.setAdapter(mAdapter);
 
         CallLogsViewModelFactory factory = new CallLogsViewModelFactory(cursor);
@@ -125,5 +127,10 @@ public class MainActivity extends AppCompatActivity implements
             registros = null;
         }
         return registros;
+    }
+
+    @Override
+    public void clickListenerFromList(String data) {
+        Toast.makeText(this, data, Toast.LENGTH_LONG).show();
     }
 }

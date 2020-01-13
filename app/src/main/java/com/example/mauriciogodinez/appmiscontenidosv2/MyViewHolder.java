@@ -9,7 +9,7 @@ import android.widget.TextView;
  * Created by mauriciogodinez on 31/03/17.
  */
 
-public class MyViewHolder extends RecyclerView.ViewHolder {
+public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     // each data item is just a string in this case
     private TextView viewNumero;
     private TextView viewFecha;
@@ -27,6 +27,8 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         viewDuracion = view.findViewById(R.id.text_view_duracion);
         viewGeocode = view.findViewById(R.id.text_view_geocode);
         viewLlamada = view.findViewById(R.id.text_view_llamada);
+
+        view.setOnClickListener(this);
     }
 
     public void setViewNumero(String viewNumero) {
@@ -51,5 +53,17 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 
     public void setViewLlamada(String viewLlamada) {
         this.viewLlamada.setText(viewLlamada);
+    }
+
+    @Override
+    public void onClick(View view) {
+        String data = viewNumero.getText().toString() + "\n" +
+                viewFecha.getText().toString() + "\n" +
+                viewTipo.getText().toString() + "\n" +
+                viewDuracion.getText().toString() + "\n" +
+                viewGeocode.getText().toString() + "\n" +
+                viewLlamada.getText().toString() + "\n";
+
+        MyAdapter.mCallback.clickListenerFromList(data);
     }
 }

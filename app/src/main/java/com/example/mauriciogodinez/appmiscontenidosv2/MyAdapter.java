@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import static com.example.mauriciogodinez.appmiscontenidosv2.MainActivity.colContentResolver;
@@ -20,9 +19,11 @@ import static com.example.mauriciogodinez.appmiscontenidosv2.MainActivity.colCon
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private Cursor contactList;
     private Context mContext;
+    public static CallbackFromList mCallback;
 
-    public MyAdapter(Context context) {
+    public MyAdapter(Context context, CallbackFromList callbackFromList) {
         mContext = context;
+        mCallback = callbackFromList;
     }
 
     public void setData(Cursor listInformation) {
