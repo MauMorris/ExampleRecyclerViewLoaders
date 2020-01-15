@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="com.example.mauriciogodinez.appmiscontenidosv2.PortadaActivity">
+        <activity android:name="com.example.mauriciogodinez.appmiscontenidosv2.ui.PortadaActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW"/>

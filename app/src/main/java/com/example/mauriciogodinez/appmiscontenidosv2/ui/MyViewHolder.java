@@ -1,8 +1,10 @@
-package com.example.mauriciogodinez.appmiscontenidosv2;
+package com.example.mauriciogodinez.appmiscontenidosv2.ui;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.mauriciogodinez.appmiscontenidosv2.R;
 
 
 /**
@@ -64,6 +66,6 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
                 viewGeocode.getText().toString() + "\n" +
                 viewLlamada.getText().toString() + "\n";
 
-        MyAdapter.mCallback.clickListenerFromList(data);
+        MyAdapter.mCallback.clickListenerFromAdapterItem(data);
     }
 }

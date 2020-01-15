@@ -1,4 +1,4 @@
-package com.example.mauriciogodinez.appmiscontenidosv2;
+package com.example.mauriciogodinez.appmiscontenidosv2.ui;
 
 /**
  * Created by mauriciogodinez on 01/04/17.
@@ -19,9 +19,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-public class PortadaActivity extends AppCompatActivity implements NextActivityCallback {
+import com.example.mauriciogodinez.appmiscontenidosv2.MainActivity;
+import com.example.mauriciogodinez.appmiscontenidosv2.R;
 
-    private NextActivityCallback mNextActivityCallback;
+public class PortadaActivity extends AppCompatActivity implements PortadaActivityCallback {
+
+    private PortadaActivityCallback mPortadaActivityCallback;
 
     private static final String TAG = PortadaActivity.class.getSimpleName();
 
@@ -45,7 +48,7 @@ public class PortadaActivity extends AppCompatActivity implements NextActivityCa
         setContentView(R.layout.activity_portada);
 
         mContentView = findViewById(R.id.fullscreen_activity_portada);
-        mNextActivityCallback = PortadaActivity.this;
+        mPortadaActivityCallback = PortadaActivity.this;
 
         //Aqui modificamos la vista inicial de la Activity para la animacion
         mContentView.setSystemUiVisibility(
@@ -112,7 +115,7 @@ public class PortadaActivity extends AppCompatActivity implements NextActivityCa
             mShowHandler.removeCallbacks(mShowRunnable);
 
             //Despues del tiempo ejecuta la siguiente tarea
-            mNextActivityCallback.executeNextActivity();
+            mPortadaActivityCallback.executeNextActivity();
         }
     };
 

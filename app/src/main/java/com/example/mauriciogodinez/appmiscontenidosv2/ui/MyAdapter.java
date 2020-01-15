@@ -1,4 +1,4 @@
-package com.example.mauriciogodinez.appmiscontenidosv2;
+package com.example.mauriciogodinez.appmiscontenidosv2.ui;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -10,20 +10,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mauriciogodinez.appmiscontenidosv2.R;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.example.mauriciogodinez.appmiscontenidosv2.MainActivity.colContentResolver;
+import static com.example.mauriciogodinez.appmiscontenidosv2.vm.CallLogsViewModel.colContentResolver;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private Cursor contactList;
     private Context mContext;
-    public static CallbackFromList mCallback;
+    public static AdapterItemCallback mCallback;
 
-    public MyAdapter(Context context, CallbackFromList callbackFromList) {
+    public MyAdapter(Context context, AdapterItemCallback adapterItemCallback) {
         mContext = context;
-        mCallback = callbackFromList;
+        mCallback = adapterItemCallback;
     }
 
     public void setData(Cursor listInformation) {
