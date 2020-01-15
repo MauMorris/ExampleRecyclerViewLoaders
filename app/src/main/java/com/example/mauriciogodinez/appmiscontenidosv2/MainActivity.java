@@ -1,5 +1,6 @@
 package com.example.mauriciogodinez.appmiscontenidosv2;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
@@ -35,25 +36,11 @@ public class MainActivity extends AppCompatActivity implements AdapterItemCallba
 
         mMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        mMainBinding.recyclerView.setHasFixedSize(true);
-        // usa linear layout manager
-        LinearLayoutManager mLayoutManager = new
-                LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mMainBinding.recyclerView.setLayoutManager(mLayoutManager);
-
-        mAdapter = new MyAdapter(this, this);
-        mMainBinding.recyclerView.setAdapter(mAdapter);
+        setViews(mMainBinding);
 
         mCallLogsViewModel = ViewModelProviders.of(this).get(CallLogsViewModel.class);
 
-        mCallLogsViewModel.getCurrentData().observe(this, new Observer<Cursor>() {
-            public void onChanged(@Nullable Cursor cursor) {
-                if (cursor != null) {
-                    mMainBinding.loadingIndicatorProgressBar.setVisibility(View.INVISIBLE);
-                    mAdapter.setData(cursor);
-                }
-            }
-        });
+        subscribeUi(mCallLogsViewModel.getCurrentData());
 
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(DATA_REQUESTED)) {
@@ -62,6 +49,28 @@ public class MainActivity extends AppCompatActivity implements AdapterItemCallba
             }
         } else
             getCallLagsContentProvider();
+    }
+
+    private void setViews(ActivityMainBinding mMainBinding) {
+        mMainBinding.recyclerView.setHasFixedSize(true);
+        // usa linear layout manager
+        LinearLayoutManager mLayoutManager = new
+                LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mMainBinding.recyclerView.setLayoutManager(mLayoutManager);
+
+        mAdapter = new MyAdapter(this, this);
+        mMainBinding.recyclerView.setAdapter(mAdapter);
+    }
+
+    private void subscribeUi(MutableLiveData<Cursor> currentData) {
+        currentData.observe(this, new Observer<Cursor>() {
+            public void onChanged(@Nullable Cursor cursor) {
+                if (cursor != null) {
+                    mMainBinding.loadingIndicatorProgressBar.setVisibility(View.INVISIBLE);
+                    mAdapter.setData(cursor);
+                }
+            }
+        });
     }
 
     private void getCallLagsContentProvider() {
